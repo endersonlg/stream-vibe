@@ -1,4 +1,15 @@
+/* eslint-disable prettier/prettier */
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        hostname: "**",
+        port: "",
+        pathname: "**",
+      },
+    ],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

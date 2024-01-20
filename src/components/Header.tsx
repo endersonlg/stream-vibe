@@ -12,7 +12,7 @@ export function Header() {
   const linkSelected = links[1]
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between py-6">
       <Image src={Logo} alt="StreamVibe" />
 
       <nav className="bg-dark-800 px-10 py-3 border-4 border-solid border-dark-500 rounded-xl">

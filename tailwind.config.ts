@@ -20,6 +20,7 @@ const config: Config = {
         80: '0.8',
       },
       height: {
+        22: '5.5rem',
         112: '28rem',
       },
     },

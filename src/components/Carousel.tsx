@@ -71,7 +71,7 @@ export function Carousel() {
   }, [direction])
 
   return (
-    <div className="relative h-112 overflow-hidden">
+    <div className="relative h-112 overflow-hidden mb-24">
       {images.map((image, index) => {
         return (
           <div

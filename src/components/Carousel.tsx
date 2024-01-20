@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CarouselControl } from './CarouselControl'
 import { Poster } from './Poster'
 
@@ -30,8 +30,11 @@ const images = [
   },
 ]
 
+type Direction = 'forward' | 'backward'
+
 export function Carousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [direction, setDirection] = useState<Direction>('forward')
 
   function nextStep() {
     if (currentIndex < images.length - 1) {
@@ -44,6 +47,28 @@ export function Carousel() {
       setCurrentIndex((state) => state - 1)
     }
   }
+
+  useEffect(() => {
+    if (currentIndex === images.length - 1) {
+      setDirection('backward')
+    } else if (currentIndex === 0) {
+      setDirection('forward')
+    }
+  }, [currentIndex])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (direction === 'backward') {
+        setCurrentIndex((state) => state - 1)
+      } else {
+        setCurrentIndex((state) => state + 1)
+      }
+    }, 1000 * 3)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [direction])
 
   return (
     <div className="relative h-112 overflow-hidden">
@@ -73,6 +98,7 @@ export function Carousel() {
         currentIndex={currentIndex}
         onBackStep={backStep}
         onNextStep={nextStep}
+        variant="secondary"
         className="absolute bottom-5 left-12 right-12"
       />
     </div>

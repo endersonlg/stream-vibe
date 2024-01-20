@@ -6,6 +6,7 @@ import { HTMLAttributes } from 'react'
 type Props = HTMLAttributes<HTMLDivElement> & {
   steps: number
   currentIndex: number
+  variant?: 'primary' | 'secondary'
   onNextStep: () => void
   onBackStep: () => void
 }
@@ -13,6 +14,7 @@ type Props = HTMLAttributes<HTMLDivElement> & {
 export function CarouselControl({
   steps,
   currentIndex,
+  variant = 'primary',
   onBackStep,
   onNextStep,
   className,
@@ -26,12 +28,20 @@ export function CarouselControl({
     onNextStep()
   }
 
+  const buttonBackground = variant === 'primary' ? 'gray' : 'black'
+
   return (
     <div
       className={`flex gap-4 items-center justify-center ${className}`}
       {...rest}
     >
-      <ButtonIcon icon={ArrowLeft} withBox onClick={handleBackStep} />
+      <ButtonIcon
+        icon={ArrowLeft}
+        withBox
+        background={buttonBackground}
+        disabled={currentIndex === 0}
+        onClick={handleBackStep}
+      />
       <div className="flex flex-1 gap-1 justify-center">
         {Array.from({ length: steps }).map((_, index) => {
           return (
@@ -50,7 +60,13 @@ export function CarouselControl({
           )
         })}
       </div>
-      <ButtonIcon icon={ArrowRight} withBox onClick={handleNextStep} />
+      <ButtonIcon
+        icon={ArrowRight}
+        withBox
+        background={buttonBackground}
+        disabled={currentIndex === steps - 1}
+        onClick={handleNextStep}
+      />
     </div>
   )
 }

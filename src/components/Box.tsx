@@ -12,7 +12,7 @@ export function Box({ title, children, className, ...rest }: Props) {
       {...rest}
     >
       {title && (
-        <span className="absolute -top-1/2 translate-y-full px-5 py-2 bg-red-800 rounded-md text-base font-semibold text-white">
+        <span className="absolute top-0 -translate-y-1/2 px-5 py-2 bg-red-800 rounded-md text-base font-semibold text-white">
           Movies
         </span>
       )}

@@ -57,7 +57,7 @@ export function Carousel() {
   }, [currentIndex])
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const timeout = setTimeout(() => {
       if (direction === 'backward') {
         setCurrentIndex((state) => state - 1)
       } else {
@@ -66,9 +66,9 @@ export function Carousel() {
     }, 1000 * 3)
 
     return () => {
-      clearInterval(interval)
+      clearTimeout(timeout)
     }
-  }, [direction])
+  }, [direction, currentIndex])
 
   return (
     <div className="relative h-112 overflow-hidden mb-24">

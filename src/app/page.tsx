@@ -1,15 +1,126 @@
 import { Box } from '@/components/Box'
-import { Carousel } from '@/components/Carousel'
-import { CategoryCard } from '@/components/CategoryCard.'
+import { CarouselGeneric } from '@/components/CarouselGeneric'
+import { CarouselPosters } from '@/components/CarouselPosters'
+import { GenreCard } from '@/components/GenreCard'
 
-// import avengers from '../assets/avengers.jpg'
-// ,
-export default function Home() {
+import { MovieCard } from '@/components/MovieCard'
+import { api } from '@/libs/axios/api'
+
+type ResponseMovie = {
+  results: {
+    title: string
+    overview: string
+    poster_path: string
+    vote_average: number
+    vote_count: number
+    popularity: number
+    release_date: string
+  }[]
+}
+
+interface ResponseMovieGenre {
+  genres: {
+    id: string
+    name: string
+  }[]
+}
+
+async function loadAllGenre() {
+  const {
+    data: { genres },
+  } = await api.get<ResponseMovieGenre>('/genre/movie/list')
+  return genres
+}
+
+async function loadByGenre(genre: string) {
+  const { data } = await api.get<ResponseMovie>(
+    `/discover/movie?with_genres=${genre}`,
+  )
+
+  return data.results
+}
+
+async function loadBeingReleased() {
+  const { data } = await api.get<ResponseMovie>('/movie/upcoming')
+
+  return data.results
+}
+
+async function loadPopular() {
+  const { data } = await api.get<ResponseMovie>('/movie/popular')
+
+  return data.results
+}
+
+export default async function Home() {
+  const popularMovies = await loadPopular()
+
+  const beingReleased = await loadBeingReleased()
+
+  const genres = await loadAllGenre()
+
+  const moviesByGenres = await Promise.all(
+    genres.map((genre) => loadByGenre(genre.id)),
+  )
+
+  const posters = popularMovies.slice(0, 5).map((result) => ({
+    title: result.title,
+    description: result.overview,
+    image: `https://www.themoviedb.org/t/p/w1920_and_h600_multi_faces/${result.poster_path}`,
+  }))
+
+  const beingReleasedAdjusted = beingReleased.map((result) => ({
+    movie: {
+      title: result.title,
+      image: `https://www.themoviedb.org/t/p/w500/${result.poster_path}`,
+      link: '',
+      release: result.release_date,
+    },
+  }))
+
+  const popularMoviesAdjusted = popularMovies.map((result) => ({
+    movie: {
+      title: result.title,
+      image: `https://www.themoviedb.org/t/p/w500/${result.poster_path}`,
+      link: '',
+      average: result.vote_average,
+      visualizations: result.popularity,
+      votes: result.vote_count,
+    },
+  }))
+
+  const moviesByGenresAdjusted = moviesByGenres.map((moviesByGenre, index) => ({
+    id: genres[index].id,
+    title: genres[index].name,
+    images: moviesByGenre
+      .slice(0, 4)
+      .map(
+        (movie) => `https://www.themoviedb.org/t/p/w500/${movie.poster_path}`,
+      ),
+    link: '',
+  }))
+
   return (
     <main>
-      <Carousel />
+      <CarouselPosters posters={posters} />
       <Box title="Movies">
-        <CategoryCard />
+        <CarouselGeneric
+          title="Popular Top 10 In Genres"
+          items={moviesByGenresAdjusted}
+          component={GenreCard}
+        />
+
+        <CarouselGeneric
+          title={'New Releases'}
+          items={beingReleasedAdjusted}
+          component={MovieCard}
+        />
+
+        <CarouselGeneric
+          title="Trending Now"
+          items={popularMoviesAdjusted}
+          component={MovieCard}
+        />
       </Box>
     </main>
   )

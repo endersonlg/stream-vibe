@@ -32,7 +32,9 @@ export function CarouselControl({
 
   return (
     <div
-      className={`flex gap-4 items-center justify-center ${className}`}
+      className={`flex gap-4 items-center justify-center
+      ${variant === 'primary' ? 'p-4 bg-dark-800 rounded-xl border border-solid border-dark-500' : ''}
+      ${className}`}
       {...rest}
     >
       <ButtonIcon

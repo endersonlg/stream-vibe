@@ -21,7 +21,7 @@ type Props = HTMLAttributes<HTMLDivElement> & {
 export function Poster({ poster, className, style, ...rest }: Props) {
   return (
     <div
-      className={`relative flex flex-col justify-end items-center h-full rounded-xl ${className}`}
+      className={`relative flex flex-col justify-end items-center h-full rounded-xl ${className || ''}`}
       style={{
         background: `linear-gradient(0deg, #141414 0%, rgba(20, 20, 20, 0.00) 100%), url(${poster.image}) lightgray 50% / cover no-repeat`,
         ...style,

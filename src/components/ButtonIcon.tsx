@@ -28,7 +28,7 @@ export function ButtonIcon({
                   ${
                     withBox &&
                     `flex items-center justify-center p-3 ${backgroundColor} rounded-lg border border-solid border-dark-400`
-                  } ${className}`}
+                  } ${className || ''}`}
       {...rest}
     >
       <Icon size={size} />

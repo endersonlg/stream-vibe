@@ -8,6 +8,7 @@ import { api } from '@/libs/axios/api'
 
 type ResponseMovie = {
   results: {
+    id: number
     title: string
     overview: string
     poster_path: string
@@ -80,6 +81,7 @@ export default async function Home() {
 
   const popularMoviesAdjusted = popularMovies.map((result) => ({
     movie: {
+      id: result.id,
       title: result.title,
       image: `https://www.themoviedb.org/t/p/w500/${result.poster_path}`,
       link: '',

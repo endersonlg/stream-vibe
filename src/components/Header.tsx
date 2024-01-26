@@ -13,7 +13,9 @@ export function Header() {
 
   return (
     <div className="flex items-center justify-between py-6">
-      <Image src={Logo} alt="StreamVibe" />
+      <Link href={'/'}>
+        <Image src={Logo} alt="StreamVibe" />
+      </Link>
 
       <nav className="bg-dark-800 px-10 py-3 border-4 border-solid border-dark-500 rounded-xl">
         <ul className="flex gap-8 h-12 items-center ">

@@ -19,7 +19,7 @@ export function GenreCard({ id, title, images, className, ...rest }: Props) {
       href={link}
       className={`flex-1 p-6 w-56 max-w-56 border border-solid border-dark-400 
                   rounded-lg bg-dark-600 hover:scale-105 transition-all 
-                  ${className}`}
+                  ${className || ''}`}
       {...rest}
     >
       <div className="relative grid grid-cols-2 gap-1 mb-1 after:contents[''] after:absolute after:inset-0 after:bg-gradient-to-t after:from-dark-600">

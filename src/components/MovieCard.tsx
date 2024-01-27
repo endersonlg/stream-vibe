@@ -41,8 +41,8 @@ export function MovieCard({ movie, className, ...rest }: Props) {
       href={movie.link}
       className={`flex-1 p-6 ${movie.average ? 'min-w-80 max-w-80' : 'max-w-72 min-w-72'}
        border border-solid border-dark-400 rounded-lg bg-dark-600 
-       hover:scale-105 transition-all
-       ${className}`}
+       hover:scale-[1.03] transition-all
+       ${className || ''}`}
       {...rest}
     >
       <Image

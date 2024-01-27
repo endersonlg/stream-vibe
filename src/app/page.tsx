@@ -5,26 +5,7 @@ import { GenreCard } from '@/components/GenreCard'
 import { MovieCard } from '@/components/MovieCard'
 import { api } from '@/libs/axios/api'
 import { PopularFilmCarousel } from './PopularFilmCarousel'
-
-type ResponseMovie = {
-  results: {
-    id: number
-    title: string
-    overview: string
-    poster_path: string
-    vote_average: number
-    vote_count: number
-    popularity: number
-    release_date: string
-  }[]
-}
-
-interface ResponseMovieGenre {
-  genres: {
-    id: string
-    name: string
-  }[]
-}
+import { ResponseMovie, ResponseMovieGenre } from './types'
 
 async function loadAllGenre() {
   const {
@@ -33,7 +14,7 @@ async function loadAllGenre() {
   return genres
 }
 
-async function loadByGenre(genre: string) {
+async function loadByGenre(genre: number) {
   const { data } = await api.get<ResponseMovie>(
     `/discover/movie?with_genres=${genre}`,
   )

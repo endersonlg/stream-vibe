@@ -18,7 +18,7 @@ export function GenreCard({ id, title, images, className, ...rest }: Props) {
     <Link
       href={link}
       className={`flex-1 p-6 w-56 max-w-56 border border-solid border-dark-400 
-                  rounded-lg bg-dark-600 hover:scale-105 transition-all 
+                  rounded-lg bg-dark-600 hover:scale-[1.03] transition-all 
                   ${className || ''}`}
       {...rest}
     >

@@ -8,13 +8,12 @@ type Props = HTMLAttributes<HTMLDivElement> & {
 export function Box({ title, children, className, ...rest }: Props) {
   return (
     <div
-      className={`relative border solid border-dark-400 rounded-xl p-12 overflow-hidden ${className || ''}`}
+      className={`relative border solid border-dark-400 rounded-xl p-12 ${className || ''}`}
       {...rest}
     >
       {title && (
-        // @todo: corrigir
-        <span className="absolute top-0 px-5 py-2 bg-red-800 rounded-md text-base font-semibold text-white">
-          Movies
+        <span className="absolute top-0 -translate-y-2/4 px-5 py-2 bg-red-800 rounded-md text-base font-semibold text-white">
+          {title}
         </span>
       )}
       {children}

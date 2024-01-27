@@ -77,13 +77,12 @@ export function CarouselGeneric({
           onBackStep={backStep}
         />
       </div>
-      <div className="flex" ref={containerRef}>
+      <div className="flex overflow-hidden" ref={containerRef}>
         {itemsDividedBySteps.map((itemsDivideByStep, index) => (
           <div
             key={`genre-divided-${index}`}
             className={`flex flex-wrap gap-6 justify-around min-w-full py-6 transition-transform duration-[0.5s] ease-linear `}
             style={{
-              gridTemplateColumns: `repeat(${quantityToShow}, minmax(0, 1fr))`,
               transform: `translateX(calc(${currentIndex * -100}% ${currentIndex === index ? '+ 0rem' : currentIndex < index ? '+ 4rem' : '- 4rem'}))`,
             }}
           >

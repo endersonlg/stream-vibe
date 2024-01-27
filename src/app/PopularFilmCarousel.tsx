@@ -1,14 +1,6 @@
 import { CarouselPosters } from '@/components/CarouselPosters'
 import { api } from '@/libs/axios/api'
-
-type ResponseMovie = {
-  results: {
-    id: number
-    title: string
-    overview: string
-    poster_path: string
-  }[]
-}
+import { ResponseMovie } from './types'
 
 export async function PopularFilmCarousel() {
   const { data } = await api.get<ResponseMovie>('/movie/popular')

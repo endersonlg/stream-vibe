@@ -1,20 +1,8 @@
 import { PopularFilmCarousel } from '@/app/PopularFilmCarousel'
+import { ResponseMovie, ResponseMovieGenre } from '@/app/types'
 import { Box } from '@/components/Box'
 import { MovieCard } from '@/components/MovieCard'
 import { api } from '@/libs/axios/api'
-
-type ResponseMovie = {
-  results: {
-    id: number
-    title: string
-    overview: string
-    poster_path: string
-    vote_average: number
-    vote_count: number
-    popularity: number
-    release_date: string
-  }[]
-}
 
 type Props = {
   params: {
@@ -22,12 +10,30 @@ type Props = {
   }
 }
 
-export default async function Home({ params: { genreId } }: Props) {
+async function loadAllGenre() {
+  const {
+    data: { genres },
+  } = await api.get<ResponseMovieGenre>('/genre/movie/list')
+  return genres
+}
+
+async function loadByGenre(genre: string) {
   const { data } = await api.get<ResponseMovie>(
-    `/discover/movie?with_genres=${genreId}`,
+    `/discover/movie?with_genres=${genre}`,
   )
 
-  const moviesByGenre = data.results.map((movie) => ({
+  return data.results
+}
+
+export default async function Home({ params: { genreId } }: Props) {
+  const [genres, moviesByGenre] = await Promise.all([
+    loadAllGenre(),
+    loadByGenre(genreId),
+  ])
+
+  const genreName = genres.find((genre) => genre.id === Number(genreId))?.name
+
+  const moviesByGenreAdjusted = moviesByGenre.map((movie) => ({
     id: movie.id,
     title: movie.title,
     image: `https://www.themoviedb.org/t/p/w500/${movie.poster_path}`,
@@ -41,9 +47,9 @@ export default async function Home({ params: { genreId } }: Props) {
     <main>
       <PopularFilmCarousel />
 
-      <Box title="Movies">
+      <Box title={genreName || 'Movies'}>
         <div className="flex flex-row flex-wrap gap-6 justify-center">
-          {moviesByGenre.map((movieByGenre) => (
+          {moviesByGenreAdjusted.map((movieByGenre) => (
             <MovieCard key={movieByGenre.id} movie={movieByGenre} />
           ))}
         </div>

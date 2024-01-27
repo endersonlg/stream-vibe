@@ -66,8 +66,10 @@ export function CarouselGeneric({
 
   return (
     <div className="mb-20">
-      <div className="flex justify-between items-center gap-6 mb-6">
-        <h2 className="text-4xl font-bold text-white">{title}</h2>
+      <div className="flex flex-wrap justify-between items-center gap-6 mb-6">
+        <h2 className="text-4xl max-xl:text-3xl font-bold text-white">
+          {title}
+        </h2>
         <CarouselControl
           currentIndex={currentIndex}
           steps={steps}
@@ -79,7 +81,7 @@ export function CarouselGeneric({
         {itemsDividedBySteps.map((itemsDivideByStep, index) => (
           <div
             key={`genre-divided-${index}`}
-            className={`grid gap-x-6 min-w-full py-6 transition-transform duration-[0.5s] ease-linear `}
+            className={`flex flex-wrap gap-6 justify-around min-w-full py-6 transition-transform duration-[0.5s] ease-linear `}
             style={{
               gridTemplateColumns: `repeat(${quantityToShow}, minmax(0, 1fr))`,
               transform: `translateX(calc(${currentIndex * -100}% ${currentIndex === index ? '+ 0rem' : currentIndex < index ? '+ 4rem' : '- 4rem'}))`,

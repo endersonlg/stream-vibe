@@ -1,12 +1,12 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { CarouselControl } from './CarouselControl'
-import { Poster } from './Poster'
+import { Poster, PosterProps } from './Poster'
 
 type Direction = 'forward' | 'backward'
 
 type CarouselPostersProps = {
-  posters: Poster[]
+  posters: PosterProps[]
 }
 
 export function CarouselPosters({ posters }: CarouselPostersProps) {

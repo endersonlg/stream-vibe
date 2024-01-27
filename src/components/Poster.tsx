@@ -8,14 +8,14 @@ import { Button } from './Button'
 import { ButtonIcon } from './ButtonIcon'
 import { HTMLAttributes } from 'react'
 
-export type Poster = {
+export type PosterProps = {
   title: string
   description: string
   image: string
 }
 
 type Props = HTMLAttributes<HTMLDivElement> & {
-  poster: Poster
+  poster: PosterProps
 }
 
 export function Poster({ poster, className, style, ...rest }: Props) {

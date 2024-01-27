@@ -39,7 +39,7 @@ export function MovieCard({ movie, className, ...rest }: Props) {
   return (
     <Link
       href={movie.link}
-      className={`flex-1 p-6 ${movie.average ? 'min-w-80 max-w-80' : 'min-w-72 max-w-72'}
+      className={`flex-1 p-6 ${movie.average ? 'min-w-80 max-w-80' : 'max-w-72 min-w-72'}
        border border-solid border-dark-400 rounded-lg bg-dark-600 
        hover:scale-105 transition-all
        ${className}`}
@@ -50,11 +50,11 @@ export function MovieCard({ movie, className, ...rest }: Props) {
         alt={`${movie.title}`}
         width={80 * 4}
         height={96 * 4}
-        className={`w-full ${movie.average ? 'h-96' : 'h-72'} rounded-xl bg-cover mb-5`}
+        className={`w-full aspect-auto rounded-xl bg-cover mb-5`}
       />
 
       <div
-        className={`flex items-center ${movie.release ? 'justify-center' : 'justify-between'} gap-2`}
+        className={`flex flex-wrap items-center ${movie.release ? 'justify-center' : 'justify-between'} gap-2`}
       >
         {movie.release && (
           <div className="flex gap-1 py-2 px-3 border solid border-dark-400 rounded-full">

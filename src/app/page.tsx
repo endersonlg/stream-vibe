@@ -1,10 +1,10 @@
 import { Box } from '@/components/Box'
 import { CarouselGeneric } from '@/components/CarouselGeneric'
-import { CarouselPosters } from '@/components/CarouselPosters'
 import { GenreCard } from '@/components/GenreCard'
 
 import { MovieCard } from '@/components/MovieCard'
 import { api } from '@/libs/axios/api'
+import { PopularFilmCarousel } from './PopularFilmCarousel'
 
 type ResponseMovie = {
   results: {
@@ -41,34 +41,28 @@ async function loadByGenre(genre: string) {
   return data.results
 }
 
-async function loadBeingReleased() {
-  const { data } = await api.get<ResponseMovie>('/movie/upcoming')
-
-  return data.results
-}
-
 async function loadPopular() {
   const { data } = await api.get<ResponseMovie>('/movie/popular')
 
   return data.results
 }
 
+async function loadBeingReleased() {
+  const { data } = await api.get<ResponseMovie>('/movie/upcoming')
+
+  return data.results
+}
+
 export default async function Home() {
-  const popularMovies = await loadPopular()
-
-  const beingReleased = await loadBeingReleased()
-
-  const genres = await loadAllGenre()
+  const [popularMovies, beingReleased, genres] = await Promise.all([
+    loadPopular(),
+    loadBeingReleased(),
+    loadAllGenre(),
+  ])
 
   const moviesByGenres = await Promise.all(
     genres.map((genre) => loadByGenre(genre.id)),
   )
-
-  const posters = popularMovies.slice(0, 5).map((result) => ({
-    title: result.title,
-    description: result.overview,
-    image: `https://www.themoviedb.org/t/p/w1920_and_h600_multi_faces/${result.poster_path}`,
-  }))
 
   const beingReleasedAdjusted = beingReleased.map((result) => ({
     movie: {
@@ -104,7 +98,7 @@ export default async function Home() {
 
   return (
     <main>
-      <CarouselPosters posters={posters} />
+      <PopularFilmCarousel />
       <Box title="Movies">
         <CarouselGeneric
           title="Popular Top 10 In Genres"

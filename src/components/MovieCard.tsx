@@ -8,9 +8,9 @@ import Link from 'next/link'
 import { HTMLAttributes } from 'react'
 
 export type Movie = {
+  id: number
   title: string
   image: string
-  link: string
   duration?: number
   visualizations?: number
   release?: string
@@ -36,13 +36,16 @@ export function MovieCard({ movie, className, ...rest }: Props) {
       )
     : null
 
+  const link = `/movies/${movie.id}`
+
   return (
     <Link
-      href={movie.link}
+      href={link}
       className={`flex-1 p-6 ${movie.average ? 'min-w-80 max-w-80' : 'max-w-72 min-w-72'}
        border border-solid border-dark-400 rounded-lg bg-dark-600 
        hover:scale-[1.03] transition-all
        ${className || ''}`}
+      prefetch
       {...rest}
     >
       <Image

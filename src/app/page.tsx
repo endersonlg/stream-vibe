@@ -2,7 +2,7 @@ import { Box } from '@/components/Box'
 import { CarouselGeneric } from '@/components/CarouselGeneric'
 import { GenreCard } from '@/components/GenreCard'
 
-import { MovieCard } from '@/components/MovieCard'
+import { Movie, MovieCard } from '@/components/MovieCard'
 import { api } from '@/libs/axios/api'
 import { PopularFilmCarousel } from './PopularFilmCarousel'
 import { ResponseMovie, ResponseMovieGenre } from './types'
@@ -45,21 +45,22 @@ export default async function Home() {
     genres.map((genre) => loadByGenre(genre.id)),
   )
 
-  const beingReleasedAdjusted = beingReleased.map((result) => ({
-    movie: {
-      title: result.title,
-      image: `https://www.themoviedb.org/t/p/w500/${result.poster_path}`,
-      link: '',
-      release: result.release_date,
-    },
-  }))
+  const beingReleasedAdjusted: { movie: Movie }[] = beingReleased.map(
+    (result) => ({
+      movie: {
+        id: result.id,
+        title: result.title,
+        image: `https://www.themoviedb.org/t/p/w500/${result.poster_path}`,
+        release: result.release_date,
+      },
+    }),
+  )
 
   const popularMoviesAdjusted = popularMovies.map((result) => ({
     movie: {
       id: result.id,
       title: result.title,
       image: `https://www.themoviedb.org/t/p/w500/${result.poster_path}`,
-      link: '',
       average: result.vote_average,
       visualizations: result.popularity,
       votes: result.vote_count,
@@ -67,14 +68,15 @@ export default async function Home() {
   }))
 
   const moviesByGenresAdjusted = moviesByGenres.map((moviesByGenre, index) => ({
-    id: genres[index].id,
-    title: genres[index].name,
-    images: moviesByGenre
-      .slice(0, 4)
-      .map(
-        (movie) => `https://www.themoviedb.org/t/p/w500/${movie.poster_path}`,
-      ),
-    link: '',
+    genre: {
+      id: genres[index].id,
+      title: genres[index].name,
+      images: moviesByGenre
+        .slice(0, 4)
+        .map(
+          (movie) => `https://www.themoviedb.org/t/p/w500/${movie.poster_path}`,
+        ),
+    },
   }))
 
   return (

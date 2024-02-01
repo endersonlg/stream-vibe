@@ -15,6 +15,7 @@ const config: Config = {
       },
       maxWidth: {
         '9/10': '90%',
+        '1/2': '50%',
       },
       brightness: {
         80: '0.8',
@@ -24,6 +25,9 @@ const config: Config = {
         112: '28rem',
         152: '38rem',
         208: '52rem',
+      },
+      flexGrow: {
+        2: '2',
       },
     },
 

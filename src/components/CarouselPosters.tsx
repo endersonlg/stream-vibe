@@ -60,7 +60,7 @@ export function CarouselPosters({ posters }: CarouselPostersProps) {
               transform: `rotateY(${index === currentIndex ? 0 : index - currentIndex > 0 ? 90 : -90}deg)`,
             }}
           >
-            <Poster poster={poster} className={'pb-20'} />
+            <Poster poster={poster} />
           </div>
         )
       })}

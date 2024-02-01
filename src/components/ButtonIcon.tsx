@@ -24,7 +24,6 @@ export function ButtonIcon({
     <button
       className={`text-white enabled:hover:brightness-80 transition-all 
                   disabled:text-dark-100
-                  
                   ${
                     withBox &&
                     `flex items-center justify-center p-3 ${backgroundColor} rounded-lg border border-solid border-dark-400`

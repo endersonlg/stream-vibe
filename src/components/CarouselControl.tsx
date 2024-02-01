@@ -7,6 +7,7 @@ type Props = HTMLAttributes<HTMLDivElement> & {
   steps: number
   currentIndex: number
   variant?: 'primary' | 'secondary'
+  buttonsRounded?: boolean
   onNextStep: () => void
   onBackStep: () => void
 }
@@ -15,6 +16,7 @@ export function CarouselControl({
   steps,
   currentIndex,
   variant = 'primary',
+  buttonsRounded = false,
   onBackStep,
   onNextStep,
   className,
@@ -43,6 +45,7 @@ export function CarouselControl({
         background={buttonBackground}
         disabled={currentIndex === 0}
         onClick={handleBackStep}
+        className={buttonsRounded ? '!rounded-full' : ''}
       />
       <div className="flex flex-1 gap-1 justify-center">
         {Array.from({ length: steps }).map((_, index) => {
@@ -68,6 +71,7 @@ export function CarouselControl({
         background={buttonBackground}
         disabled={currentIndex === steps - 1}
         onClick={handleNextStep}
+        className={buttonsRounded ? '!rounded-full' : ''}
       />
     </div>
   )

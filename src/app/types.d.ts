@@ -11,9 +11,11 @@ export type ResponseMovie = {
   }[]
 }
 
+export type GenreResponse = {
+  id: number
+  name: string
+}
+
 export type ResponseMovieGenre = {
-  genres: {
-    id: number
-    name: string
-  }[]
+  genres: GenreResponse[]
 }

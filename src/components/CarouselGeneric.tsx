@@ -27,7 +27,7 @@ export function CarouselGeneric({
     function adjustQuantityItemsToShow() {
       const firstCardWidth = (
         containerRef.current?.firstChild?.firstChild as HTMLDivElement
-      ).offsetWidth
+      )?.offsetWidth
 
       if (containerRef.current?.clientWidth && firstCardWidth) {
         const quantity = Math.floor(

@@ -34,6 +34,7 @@ export function GenreCard({ genre, className, ...rest }: Props) {
             key={`category-image-${index}`}
             width={20 * 4}
             height={22 * 4}
+            placeholder="blur"
             className="w-full h-22 rounded-md"
           />
         ))}

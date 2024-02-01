@@ -53,7 +53,8 @@ export function MovieCard({ movie, className, ...rest }: Props) {
         alt={`${movie.title}`}
         width={80 * 4}
         height={96 * 4}
-        className={`w-full aspect-auto rounded-xl bg-cover mb-5`}
+        className={`h-96 w-full aspect-auto rounded-xl bg-cover mb-5`}
+        placeholder="blur"
       />
 
       <div

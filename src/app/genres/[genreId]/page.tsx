@@ -3,6 +3,7 @@ import { ResponseMovie, ResponseMovieGenre } from '@/app/types'
 import { Box } from '@/components/Box'
 import { MovieCard } from '@/components/MovieCard'
 import { api } from '@/libs/axios/api'
+import { NextSeo } from 'next-seo'
 
 type Props = {
   params: {
@@ -44,16 +45,20 @@ export default async function Home({ params: { genreId } }: Props) {
   }))
 
   return (
-    <main>
-      <PopularFilmCarousel />
+    <>
+      <NextSeo title={`${genreName} | Stream Vibe`} noindex />
 
-      <Box title={genreName || 'Movies'}>
-        <div className="flex flex-row flex-wrap gap-6 justify-center">
-          {moviesByGenreAdjusted.map((movieByGenre) => (
-            <MovieCard key={movieByGenre.id} movie={movieByGenre} />
-          ))}
-        </div>
-      </Box>
-    </main>
+      <main>
+        <PopularFilmCarousel />
+
+        <Box title={genreName || 'Movies'}>
+          <div className="flex flex-row flex-wrap gap-6 justify-center">
+            {moviesByGenreAdjusted.map((movieByGenre) => (
+              <MovieCard key={movieByGenre.id} movie={movieByGenre} />
+            ))}
+          </div>
+        </Box>
+      </main>
+    </>
   )
 }

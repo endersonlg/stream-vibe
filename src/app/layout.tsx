@@ -3,6 +3,7 @@ import { Manrope } from 'next/font/google'
 
 import '@/styles/globals.css'
 import { Header } from '@/components/Header'
+import { DefaultSeo } from 'next-seo'
 
 const manrope = Manrope({
   weight: ['400', '500', '600', '700'],
@@ -24,6 +25,13 @@ export default function RootLayout({
       <body
         className={`${manrope.className} bg-dark-700  max-w-screen-2xl mx-auto max-2xl:mx-12 `}
       >
+        <DefaultSeo
+          openGraph={{
+            type: 'website',
+            locale: 'en_US',
+            siteName: 'Stream Vibe',
+          }}
+        />
         <Header />
         <div className="py-12">{children}</div>
       </body>

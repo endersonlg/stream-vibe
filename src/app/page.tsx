@@ -6,6 +6,7 @@ import { Movie, MovieCard } from '@/components/MovieCard'
 import { api } from '@/libs/axios/api'
 import { PopularFilmCarousel } from './PopularFilmCarousel'
 import { ResponseMovie, ResponseMovieGenre } from './types'
+import { NextSeo } from 'next-seo'
 
 async function loadAllGenre() {
   const {
@@ -80,27 +81,34 @@ export default async function Home() {
   }))
 
   return (
-    <main>
-      <PopularFilmCarousel />
-      <Box title="Movies">
-        <CarouselGeneric
-          title="Popular Top 10 In Genres"
-          items={moviesByGenresAdjusted}
-          component={GenreCard}
-        />
+    <>
+      <NextSeo
+        title="Stream Vibe"
+        description="Discover currently trending movies and filter by genres."
+      />
 
-        <CarouselGeneric
-          title={'New Releases'}
-          items={beingReleasedAdjusted}
-          component={MovieCard}
-        />
+      <main>
+        <PopularFilmCarousel />
+        <Box title="Movies">
+          <CarouselGeneric
+            title="Popular Top 10 In Genres"
+            items={moviesByGenresAdjusted}
+            component={GenreCard}
+          />
 
-        <CarouselGeneric
-          title="Trending Now"
-          items={popularMoviesAdjusted}
-          component={MovieCard}
-        />
-      </Box>
-    </main>
+          <CarouselGeneric
+            title={'New Releases'}
+            items={beingReleasedAdjusted}
+            component={MovieCard}
+          />
+
+          <CarouselGeneric
+            title="Trending Now"
+            items={popularMoviesAdjusted}
+            component={MovieCard}
+          />
+        </Box>
+      </main>
+    </>
   )
 }

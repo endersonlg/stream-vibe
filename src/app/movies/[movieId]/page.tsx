@@ -109,7 +109,6 @@ export default async function Movie({ params: { movieId } }: Props) {
                     key={c.id}
                     width={4 * 48}
                     height={4 * 48}
-                    // placeholder="blur"
                     className={castClassName}
                   />
                 ) : (
@@ -204,7 +203,6 @@ export default async function Movie({ params: { movieId } }: Props) {
                     height={4 * 16}
                     src={c.image}
                     alt={c.name}
-                    // placeholder="blur"
                     className={crewImageClassName}
                   />
                 ) : (

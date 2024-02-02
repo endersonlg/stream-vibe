@@ -224,15 +224,17 @@ export default async function Movie({ params: { movieId } }: Props) {
         </Box>
       </div>
 
-      <Box variant="secondary">
-        <h4 className={`${subTitleClassName} mb-4`}>Reviews</h4>
-        <CarouselGeneric
-          items={reviews}
-          component={Review}
-          initialQuantity={2}
-          variant="secondary"
-        />
-      </Box>
+      {!!reviews.length && (
+        <Box variant="secondary">
+          <h4 className={`${subTitleClassName} mb-4`}>Reviews</h4>
+          <CarouselGeneric
+            items={reviews}
+            component={Review}
+            initialQuantity={2}
+            variant="secondary"
+          />
+        </Box>
+      )}
     </main>
   )
 }
